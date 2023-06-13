@@ -1,0 +1,6 @@
+extends:
+  - '@antfu'
+  - '@unocss'
+rules:
+  no-console: off
+  import/default: off
