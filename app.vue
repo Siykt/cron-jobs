@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import '@unocss/reset/sanitize/sanitize.css'
+import '@unocss/reset/sanitize/assets.css'
+import '~/styles/global.less'
+</script>
+
 <template>
-  <div>
-    <NuxtWelcome />
-  </div>
+  <Layout>
+    <NuxtPage />
+  </Layout>
 </template>

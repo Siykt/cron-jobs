@@ -1,0 +1,43 @@
+input,
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    Helvetica, "Segoe UI", Arial, Roboto, "Hiragino Sans GB", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+// 全局Transition样式
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.list-leave-active {
+  display: none !important;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// Scrollbar样式
+* ::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+* ::-webkit-scrollbar-thumb {
+  background-color: #6c6cc99a;
+}
