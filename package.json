@@ -13,13 +13,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@iconify-json/mdi": "^1.1.52",
     "lodash-es": "^4.17.21",
     "nanoid": "^4.0.2",
     "nodemailer": "^6.9.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.5",
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "0.5.5",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@types/lodash": "^4.14.195",
     "@types/node": "^18",
