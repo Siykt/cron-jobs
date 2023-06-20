@@ -17,10 +17,8 @@ body {
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: translateX(30px);
-}
-.list-leave-active {
-  display: none !important;
+  transform: translateX(-30px);
+  filter: blur(4px);
 }
 
 .fade-enter-active,
@@ -31,6 +29,17 @@ body {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s ease;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+  filter: blur(4px);
 }
 
 // Scrollbar样式

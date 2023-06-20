@@ -23,11 +23,11 @@ const tabs = ref(['运行状态', '任务详情', '任务日志'])
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col overflow-hidden bg-gray-800 bg-opacity-60">
+  <div class="flex flex-1 flex-col overflow-hidden">
     <div class="flex">
       <ATab :tabs="tabs" @click="active = $event" />
     </div>
-    <Transition name="list">
+    <Transition name="list" mode="out-in">
       <JobState v-if="active === 0" :job="job" />
       <JobDetails v-else-if="active === 1" :job="job" />
       <JobLogs v-else-if="active === 2" :job="job" />
