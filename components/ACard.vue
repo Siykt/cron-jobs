@@ -1,23 +1,27 @@
 <script setup lang="ts">
 interface Props {
+  jobId: string
   name: string
   count?: number
   description?: string
   icon?: string
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+const emits = defineEmits<{
+  (event: 'click', props: Props): void
+}>()
 </script>
 
 <template>
-  <div class="card backface-hidden absolute relative h-166px w-216px select-none bg-#040720 p3">
+  <div class="card backface-hidden absolute relative h-166px w-216px cursor-pointer select-none bg-#040720 p3" @click="emits('click', props)">
     <div class="mb-2 flex items-center">
       <img
         class="h30px bg-#040720"
         :src="icon"
         alt="job-icon"
       >
-      <span class="mlauto text-#ffffff80">{{ count }}</span>
+      <span class="ml-auto text-#ffffff80">{{ count }}</span>
     </div>
     <p class="m0 text-16px text-#ffffffaa">
       {{ name }}
@@ -48,6 +52,10 @@ defineProps<Props>()
   width: 216px;
   height: 166px;
   border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: translateY(-4px);
+  }
   .rect {
     width: 220px;
     height: 170px;
