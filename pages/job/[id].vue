@@ -8,6 +8,7 @@ onMounted(async () => {
   console.log('[Job]', jobId.value)
   job.value = {
     name: '瑞幸 4.8 折券',
+    description: '通过自动化任务定时获取瑞幸的基础折扣券(4.8)',
     module: 'Fetch Api',
     timer: '00:00:00',
     lastTimer: '00:00:00',

@@ -29,15 +29,15 @@ defineProps<Props>()
     <p class="m0 flex items-center">
       下次任务的运行时间：{{ job.nextTimer }}
     </p>
-    <p class="m0 flex items-center">
+    <p class="mx-0 my-2 flex items-center justify-center md:my-0 md:justify-start">
       ---------- 任务列表 ----------
     </p>
     <ul class="not-scroll m0 mt2 max-w-full w-fit flex flex-1 flex-wrap gap-x-6 gap-y-2 overflow-y-scroll pl-0 pr-2">
-      <li v-for="i in 10" :key="i" class="mb-2 flex items-center gap-2">
-        <span>{{ i }}.</span>
-        <span>Jobs {{ i }}</span>
-        <span>运行次数 (1000)</span>
-        <span>发生错误次数 (2000)</span>
+      <li v-for="i in 10" :key="i" class="mb-2 max-w-full flex items-center gap-2">
+        <span class="line-clamp-1">{{ i }}.</span>
+        <span class="line-clamp-1">Jobs {{ i }}</span>
+        <span class="line-clamp-1">运行次数 (1000)</span>
+        <span class="line-clamp-1">发生错误次数 (2000)</span>
       </li>
     </ul>
   </div>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+
 interface Props {
   tabs: string[]
 }
@@ -7,12 +9,15 @@ defineProps<Props>()
 const emits = defineEmits<{
   (event: 'click', index: number): void
 }>()
+
 const active = ref(0)
 const hovered = ref<number>()
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isMobile = breakpoints.smaller('sm')
 </script>
 
 <template>
-  <div :style="{ width: `${tabs.length * 80}px` }">
+  <div :style="{ width: isMobile ? '100%' : `${tabs.length * 80}px` }">
     <div class="relative w-full flex" @mouseleave="hovered = undefined">
       <div
         v-for="(tab, i) in tabs"

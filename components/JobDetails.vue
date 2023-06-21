@@ -4,10 +4,10 @@
 
 <template>
   <div class="min-h-1px w-full flex flex-col gap-2 p4 text-#ffffff60">
-    <p class="m0 mt4 flex items-center">
+    <p class="m0 mt4 flex items-center justify-center md:justify-start">
       ---------- 任务指令 ----------
     </p>
-    <div class="mt-4 flex gap-2">
+    <div class="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
       <AButton>
         <i class="mdi:plus" />
         添加新的任务

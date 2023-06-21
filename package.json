@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@iconify-json/mdi": "^1.1.52",
+    "@vueuse/core": "^10.2.0",
     "lodash-es": "^4.17.21",
     "nanoid": "^4.0.2",
     "nodemailer": "^6.9.3"
