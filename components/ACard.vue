@@ -17,11 +17,12 @@ const emits = defineEmits<{
   <div class="card backface-hidden absolute relative h-166px w-216px cursor-pointer select-none bg-#040720 p3" @click="emits('click', props)">
     <div class="mb-2 flex items-center">
       <img
+        v-if="icon"
         class="h30px bg-#040720"
         :src="icon"
         alt="job-icon"
       >
-      <span class="ml-auto text-#ffffff80">{{ count }}</span>
+      <span v-if="count" class="ml-auto text-#ffffff80">{{ count }}</span>
     </div>
     <p class="m0 text-16px text-#ffffffaa">
       {{ name }}

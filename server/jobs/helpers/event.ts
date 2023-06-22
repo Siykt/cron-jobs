@@ -11,7 +11,6 @@ export class JobEvent extends Event {
   constructor(type: string, detail?: any) {
     super(type)
     this.detail = detail
-    console.log(`[JobEvent] ${type}, detail: ${detail}`)
   }
 }
 

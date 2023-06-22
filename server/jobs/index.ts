@@ -1,5 +1,5 @@
 import LKCoffeeGetGiftVoucher from './LKCoffeeGetGiftVoucher'
 
-export default {
+export default [
   LKCoffeeGetGiftVoucher,
-}
+]

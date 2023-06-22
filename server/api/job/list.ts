@@ -1,6 +1,5 @@
-import * as jobs from '../../jobs'
+import jobs from '../../jobs'
 
 export default defineEventHandler(async () => {
-  console.log(jobs)
-  return []
+  return jobs.map(job => ({ ...job, runner: undefined }))
 })
