@@ -33,10 +33,10 @@ eventTarget.addEventListener('define', (event) => {
             console.log(`[${config.name}] [${time}]`, error)
           },
           end: <Res>(result: Res) => {
-          // 保存运行时上下文
+            // 保存运行时上下文
             const lastTimer = formatTime(new Date())
-            res.log(lastTimer)
-            res.log(`[JobRunner] ${config.id} ${result} ${lastTimer}`)
+            console.log(lastTimer)
+            console.log(`[JobRunner] ${config.id} ${result} ${lastTimer}`)
           },
         }
         return res
@@ -56,6 +56,5 @@ eventTarget.addEventListener('run', (event) => {
   const jobId = (event as JobEvent).detail
   if (!store.local.has(jobId))
     return
-  console.log(`[run] 任务 ${jobId} 开始运行`)
   eventTarget.dispatchEvent(new JobEvent(jobId))
 })
