@@ -31,12 +31,14 @@ eventTarget.addEventListener('define', (event) => {
           error: (error: Error) => {
             const time = formatTime(new Date())
             console.log(`[${config.name}] [${time}]`, error)
+            eventTarget.dispatchEvent(new JobEvent('jobEnd', { id: config.id, code: 500, data: error.message }))
           },
           end: <Res>(result: Res) => {
             // 保存运行时上下文
             const lastTimer = formatTime(new Date())
             console.log(lastTimer)
             console.log(`[JobRunner] ${config.id} ${result} ${lastTimer}`)
+            eventTarget.dispatchEvent(new JobEvent('jobEnd', { id: config.id, code: 0, data: result }))
           },
         }
         return res
