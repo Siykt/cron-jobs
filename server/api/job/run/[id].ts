@@ -1,4 +1,5 @@
-import { JobEvent, eventTarget } from '../../../jobs/helpers/event'
+import { nanoid } from 'nanoid'
+import { eventTarget } from '../../../jobs/helpers/event'
 import store from '../../../jobs/helpers/store'
 
 export default defineEventHandler(async (event) => {
@@ -9,20 +10,16 @@ export default defineEventHandler(async (event) => {
   if (!store.local.has(jobId))
     throw new Error('任务不存在')
 
-  eventTarget.dispatchEvent(new JobEvent('run', jobId))
-  const result = await new Promise<any>((resolve, reject) => {
-    const handle = (event: Event) => {
-      const res = (event as JobEvent).detail
-      if (res.id !== jobId)
-        return
-
-      if (res.code !== 0)
-        reject(res.data)
-      else
-        resolve(res.data)
-      eventTarget.removeEventListener('jobEnd', handle)
-    }
-    eventTarget.addEventListener('jobEnd', handle)
-  })
-  return { message: '任务已完成', data: result }
+  const id = nanoid()
+  eventTarget.dispatch('run', { id, jobId, data: await readBody(event) })
+  try {
+    const data = await new Promise<any>((resolve, reject) => {
+      eventTarget.on(`jobSuccess:${id}`, resolve)
+      eventTarget.on(`jobError:${id}`, reject)
+    })
+    return { message: '任务已完成', data }
+  }
+  catch (error: any) {
+    return { message: '任务执行失败', error: error.detail }
+  }
 })

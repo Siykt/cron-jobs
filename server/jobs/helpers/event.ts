@@ -1,62 +1,76 @@
-import type { JobRunnerContext, JobRunnerDefineConfig } from '../../../models/Job/Core'
+import type { JobRunnerDefineConfig } from '../../../models/Job/Core'
 import store from './store'
 import { formatTime } from './formatTime'
 
-// 通过事件来通知Job runner
-export const eventTarget = new EventTarget()
-
-export class JobEvent extends Event {
-  detail: any
-
-  constructor(type: string, detail?: any) {
+export class JobEvent<T = any> extends Event {
+  detail: T
+  constructor(type: string, detail?: T) {
     super(type)
-    this.detail = detail
+    this.detail = detail as T
   }
 }
 
-eventTarget.addEventListener('define', (event) => {
-  const config = (event as JobEvent).detail as JobRunnerDefineConfig
-  const context = { http: $fetch } as JobRunnerContext
-  const proxiesContext = new Proxy(context, {
-    get: (_target, propKey) => {
-      if (propKey === 'req')
-        return store.local.getConfig(config.id) ?? {}
+export type JobEventListener<T = any> = (event: JobEvent<T>) => void
 
-      if (propKey === 'res') {
-        const res = {
-          log: (message: string) => {
-            const time = formatTime(new Date())
-            console.log(`[${config.name}] [${time}]`, message)
-          },
-          error: (error: Error) => {
-            const time = formatTime(new Date())
-            console.log(`[${config.name}] [${time}]`, error)
-            eventTarget.dispatchEvent(new JobEvent('jobEnd', { id: config.id, code: 500, data: error.message }))
-          },
-          end: <Res>(result: Res) => {
-            // 保存运行时上下文
-            const lastTimer = formatTime(new Date())
-            console.log(lastTimer)
-            console.log(`[JobRunner] ${config.id} ${result} ${lastTimer}`)
-            eventTarget.dispatchEvent(new JobEvent('jobEnd', { id: config.id, code: 0, data: result }))
-          },
-        }
-        return res
-      }
-      return context[propKey as keyof JobRunnerContext]
-    },
-    set: () => { throw new Error('[defineRunner] 不允许修改上下文') },
-  })
+class JobEventTarget extends EventTarget {
+  private listeners = new Map<string, Set<JobEventListener>>()
+
+  on<T = any>(event: string, listener: JobEventListener<T>) {
+    if (!this.listeners.has(event))
+      this.listeners.set(event, new Set())
+    this.listeners.get(event)!.add(listener)
+    this.addEventListener(event, listener as EventListenerOrEventListenerObject)
+  }
+
+  off(event: string) {
+    if (!this.listeners.has(event))
+      return
+    const eventListeners = this.listeners.get(event) as Set<JobEventListener>
+    eventListeners.forEach((eventListener) => {
+      this.removeEventListener(event, eventListener as EventListenerOrEventListenerObject)
+    })
+    this.listeners.delete(event)
+  }
+
+  dispatch<T = any>(event: string, detail?: T) {
+    return super.dispatchEvent(new JobEvent(event, detail))
+  }
+}
+
+// 通过事件来通知Job runner
+export const eventTarget = new JobEventTarget()
+
+eventTarget.on<JobRunnerDefineConfig>('define', (event) => {
+  const config = event.detail
   // 考虑off
-  eventTarget.addEventListener(config.id, () => {
+  eventTarget.on<{ id: string; data: any }>(config.id, (event) => {
+    const { id, data } = event.detail
     console.log(`[run] 任务 ${config.id} 开始运行, ${config}`)
-    config.runner(proxiesContext)
+    config.runner({
+      http: $fetch,
+      getConfig: () => Promise.resolve({ config: store.local.getConfig(config.id), data }),
+      log: (message: string) => {
+        const time = formatTime(new Date())
+        console.log(`[${config.name}] [${time}]`, message)
+      },
+      error: (error: Error) => {
+        const time = formatTime(new Date())
+        console.error(`[${config.name}] [${time}]`, error)
+        eventTarget.dispatch(`jobError:${id}`, { id: config.id, code: 500, data: error.message })
+      },
+      end: <Res>(result: Res) => {
+        // 保存运行时上下文
+        const time = formatTime(new Date())
+        console.log(`[${config.name}] [${time}]`, result)
+        eventTarget.dispatch(`jobSuccess:${id}`, { id: config.id, code: 0, data: result })
+      },
+    })
   })
 })
 
-eventTarget.addEventListener('run', (event) => {
-  const jobId = (event as JobEvent).detail
+eventTarget.on<{ id: string; jobId: string; data: any }>('run', (event) => {
+  const { jobId, ...data } = event.detail
   if (!store.local.has(jobId))
     return
-  eventTarget.dispatchEvent(new JobEvent(jobId))
+  eventTarget.dispatch(jobId, data)
 })

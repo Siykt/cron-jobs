@@ -6,13 +6,11 @@ export interface Job {
 }
 
 export interface JobRunnerContext<Config = any> {
-  req: Config
+  getConfig: () => Promise<{ config: Config; data: any }>
   http: typeof $fetch
-  res: {
-    log: (message: string) => void
-    error: (error: Error) => void
-    end: <Res>(result: Res) => void
-  }
+  log: (message: string) => void
+  error: (error: Error) => void
+  end: <Res>(result: Res) => void
 }
 
 export type JobRunner<Config = any> = (context: JobRunnerContext<Config>) => unknown
