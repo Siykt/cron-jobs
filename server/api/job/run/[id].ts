@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
       eventTarget.on(`jobSuccess:${id}`, resolve)
       eventTarget.on(`jobError:${id}`, reject)
     })
-    return { message: '任务已完成', data }
+    return { message: '任务已完成', data: data.detail }
   }
   catch (error: any) {
     return { message: '任务执行失败', error: error.detail }
