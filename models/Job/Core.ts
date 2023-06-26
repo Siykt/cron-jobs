@@ -1,3 +1,5 @@
+import type { load } from 'cheerio'
+
 export interface Job {
   id: string
   name: string
@@ -11,6 +13,7 @@ export interface JobRunnerContext<Config = any> {
   log: (message: string) => void
   error: (error: Error) => void
   end: <Res>(result: Res) => void
+  html: typeof load
 }
 
 export type JobRunner<Config = any> = (context: JobRunnerContext<Config>) => unknown
