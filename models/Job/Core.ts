@@ -19,7 +19,7 @@ export interface JobRunnerContext<Config = any> {
 export type JobRunner<Config = any> = (context: JobRunnerContext<Config>) => unknown
 
 export interface JobRunnerDefineConfig<Config = any> extends Job {
-  defaultCron: string
+  defaultCron?: string
   config: Config
   runner: JobRunner<Config>
 }

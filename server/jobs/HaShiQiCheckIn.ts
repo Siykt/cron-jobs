@@ -5,9 +5,9 @@ export default defineRunner({
   name: '哈士奇自动签到',
   defaultCron: '0 0 0 * * *',
   description: '哈士奇自动签到领取金币, 需要cookie作为参数',
-  icon: '/icons/luckin-coffee-icon.png',
+  icon: '/icons/hashiqi.png',
   config: {
-    phoneNumber: 'string',
+    cookie: 'string',
   },
   runner: async ({ http, end, getConfig, error, html }) => {
     const { data = {} } = await getConfig()
