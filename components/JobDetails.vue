@@ -26,6 +26,7 @@ async function runJob() {
   showMsg.value = true
   msg.value = data.value?.message ?? '未知错误'
   show.value = false
+  form.value = Object.fromEntries(Object.keys(props.job.config).map(key => [key, undefined]))
   setTimeout(() => showMsg.value = false, 2000)
 }
 </script>
