@@ -9,10 +9,10 @@ defineProps<Props>()
 <template>
   <div class="min-h-1px w-full flex flex-col gap-2 p4 text-#ffffff60">
     <p class="m0 flex items-center">
-      模块：{{ job.module }}
+      模块：FetchApi
     </p>
     <p class="m0 flex items-center">
-      循环时间：{{ job.cron }}
+      循环时间：{{ job.cron || job.defaultCron }}
     </p>
     <p class="m0 flex items-center">
       已运行时长：{{ job.timer }}

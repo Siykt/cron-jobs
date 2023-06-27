@@ -1,3 +1,4 @@
+import type { JobDetail } from '../../../models/Job/Core'
 import store from '../../jobs/helpers/store'
 
 export default defineEventHandler((event) => {
@@ -7,5 +8,5 @@ export default defineEventHandler((event) => {
   if (!store.local.has(event.context.params.id))
     throw new Error('任务不存在')
 
-  return store.local.get(event.context.params.id)
+  return store.local.get(event.context.params.id) as JobDetail
 })

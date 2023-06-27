@@ -70,7 +70,8 @@ eventTarget.on<JobRunnerDefineConfig>('define', (event) => {
       })
     }
     catch (error) {
-      console.error(`[run] 任务 ${config.id} 运行失败, ${error}`)
+      console.error(`[run] 任务 ${config.id} 运行失败`)
+      console.error(error)
       eventTarget.dispatch(`jobError:${id}`, { id: config.id, code: 500, data: error })
     }
   })

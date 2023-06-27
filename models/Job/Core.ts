@@ -24,6 +24,8 @@ export interface JobRunnerDefineConfig<Config = any> extends Job {
   runner: JobRunner<Config>
 }
 
+export type JobDetail = Omit<JobRunnerDefineConfig, 'runner'>
+
 export type DefineJobRunnerCallback<Config = any> = (context: JobRunnerContext<Config>) => JobRunnerDefineConfig<Config>
 
 // export interface JobRunner {
