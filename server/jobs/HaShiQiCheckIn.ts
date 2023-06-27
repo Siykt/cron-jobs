@@ -32,6 +32,6 @@ export default defineRunner({
     form.append('__VIEWSTATE', $('#__VIEWSTATE').attr('value') ?? '')
     form.append('__VIEWSTATEGENERATOR', $('#__VIEWSTATEGENERATOR').attr('value') ?? '')
     $ = html(await http<string>(url, { method: 'POST', headers, body: form }))
-    end(`[哈士奇自动签到] 执行结果: ${$('#lblprice').text()}`)
+    end(`${$('#lblprice').text()}`)
   },
 })

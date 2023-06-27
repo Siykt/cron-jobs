@@ -16,10 +16,10 @@ export default defineRunner({
     const url = `https://mkt.lkcoffee.com/capi/resource/m/promo/activity/send?queryParamsStr=%7B%22mobile%22%3A%22${data.phoneNumber}%22%2C%22invitationCode%22%3A%22MK33613423901195%22%2C%22openid%22%3A%22%22%2C%22needOpenId%22%3Afalse%2C%22origin%22%3A4%2C%22handleMsg%22%3Afalse%2C%22adParams%22%3A%7B%7D%2C%22_%22%3A1670594887106%7D`
     const { content, code, msg } = await http<{ content: { msg: string }; code: number; msg: string }>(url, { method: 'GET' })
 
-    if (code !== 0)
+    if (code !== 1)
       return error(new Error(msg))
     if (!content?.msg?.includes('领取失败'))
-      end(`[瑞幸咖啡自动获取4.8折优惠券] 执行结果: ${data.phoneNumber} ${content.msg.replace('\n', '')}`)
+      end(`${data.phoneNumber} ${content.msg.replace('\n', '')}`)
     else
       error(new Error(content?.msg))
   },
