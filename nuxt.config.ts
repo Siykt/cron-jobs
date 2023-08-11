@@ -17,10 +17,17 @@ export default defineNuxtConfig({
       mode: 'out-in',
     },
   },
+  supabase: {
+    redirectOptions: {
+      login: '/sign-in',
+      callback: '/confirm',
+      exclude: [],
+    },
+  },
   appConfig: {
     username: 'AntPro',
   },
-  modules: ['@unocss/nuxt', '@nuxtjs/eslint-module'],
+  modules: ['@unocss/nuxt', '@nuxtjs/eslint-module', '@nuxtjs/supabase'],
   alias: {
     lodash: 'lodash-es',
   },

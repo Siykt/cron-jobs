@@ -24,6 +24,7 @@
     "@antfu/eslint-config": "^0.39.5",
     "@nuxt/devtools": "0.5.5",
     "@nuxtjs/eslint-module": "^4.1.0",
+    "@nuxtjs/supabase": "^1.0.2",
     "@types/lodash": "^4.14.195",
     "@types/node": "^18",
     "@types/nodemailer": "^6.4.8",
