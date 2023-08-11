@@ -1,5 +1,5 @@
 import { load } from 'cheerio'
-import type { JobRunnerDefineConfig } from '../../../models/Job/Core'
+import type { JobRunnerDefineConfig } from '../../../modules/Job/Core'
 import store from './store'
 import { formatTime } from './formatTime'
 

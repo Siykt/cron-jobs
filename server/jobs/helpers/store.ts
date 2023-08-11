@@ -1,4 +1,4 @@
-import type { Job } from '../../../models/Job/Core'
+import type { Job } from '../../../modules/Job/Core'
 
 type JobId = Job['id']
 

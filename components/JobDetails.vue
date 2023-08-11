@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { memoize } from 'lodash'
-import type { JobDetail } from '~/models/Job/Core'
+import type { JobDetail } from '~/modules/Job/Core'
 
 interface Props {
   job: JobDetail

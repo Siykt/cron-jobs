@@ -1,4 +1,4 @@
-import type { JobDetail } from '../../../models/Job/Core'
+import type { JobDetail } from '../../../modules/Job/Core'
 import store from '../../jobs/helpers/store'
 
 export default defineEventHandler((event) => {

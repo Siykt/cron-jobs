@@ -1,4 +1,4 @@
-import type { JobRunnerDefineConfig } from '../../../models/Job/Core'
+import type { JobRunnerDefineConfig } from '../../../modules/Job/Core'
 import { eventTarget } from './event'
 import store from './store'
 
