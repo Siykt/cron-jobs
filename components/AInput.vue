@@ -41,10 +41,14 @@ const emit = defineEmits<{
   &:focus {
     border-bottom: 1px solid #ffffff60;
   }
+  // 禁用自动填充样式
   &:-internal-autofill-selected{
-    appearance: unset;
-    background-color: transparent !important;
-    color: #ffffff60 !important;
+    transition: background-color 600000s 0s, color 600000s 0s;
+    &:hover,
+    &:active ,
+    &:focus {
+      transition: background-color 600000s 0s, color 600000s 0s;
+    }
   }
 }
 </style>
