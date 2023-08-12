@@ -25,7 +25,8 @@ export default defineNuxtConfig({
     },
   },
   appConfig: {
-    username: 'AntPro',
+    USERNAME: 'AntPro',
+    WEBSITE_URL: 'http://localhost:3001',
   },
   modules: ['@unocss/nuxt', '@nuxtjs/eslint-module', '@nuxtjs/supabase'],
   alias: {

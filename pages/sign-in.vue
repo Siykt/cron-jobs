@@ -8,11 +8,13 @@ const password = ref('')
 const showMsg = ref(false)
 const msg = ref('')
 
+const appConfig = useAppConfig()
+
 async function signInWithOAuth(provider: Provider) {
   const { error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
-      redirectTo: 'http://localhost:3001/confirm',
+      redirectTo: `${appConfig.WEBSITE_URL}/confirm`,
     },
   })
   if (error)
