@@ -25,7 +25,7 @@ onMounted(() => {
       <span>{{ msg }}</span>
       <span class="blink-animate ml-1px">|</span>
     </h2>
-    <i class="rotate-animate mdi:loading text-18 text-#6c6cc9" />
+    <i class="mdi:loading rotate-animate text-18 text-#6c6cc9" />
   </div>
 </template>
 
