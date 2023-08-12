@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   },
   appConfig: {
     USERNAME: 'AntPro',
-    WEBSITE_URL: 'http://localhost:3001',
+    WEBSITE_URL: 'https://jobs.antpro.me',
   },
   modules: ['@unocss/nuxt', '@nuxtjs/eslint-module', '@nuxtjs/supabase'],
   alias: {
