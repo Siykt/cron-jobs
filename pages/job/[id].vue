@@ -22,4 +22,3 @@ const tabs = ref(['任务详情'])
     </Transition>
   </div>
 </template>
-~/modules/Job/Core
