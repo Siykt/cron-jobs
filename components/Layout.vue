@@ -1,5 +1,8 @@
 <script setup lang="ts">
-// something
+const router = useRouter()
+const route = useRoute()
+
+const hasHistory = computed(() => route.path !== '/')
 </script>
 
 <template>
@@ -11,6 +14,10 @@
         <a href="https://www.antpro.me/" title="Siykt的博客">
           <img class="h-52px w-52px" src="~/assets/logo.png" alt="logo.png">
         </a>
+
+        <AButton v-if="hasHistory" class="ml-auto" @click="router.go(-1)">
+          <i class="mdi:arrow-left-circle text-xl" />
+        </AButton>
       </h1>
       <slot />
     </div>
